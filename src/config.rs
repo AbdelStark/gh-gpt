@@ -1,14 +1,27 @@
 //! General configuration
 
-/// Configuration for the application.
-#[derive(Debug, Default)]
-pub struct Config {
-    pub api_keys: ApiKeys,
-}
+use color_eyre::eyre::Result;
+use config::Config;
+use serde_derive::Deserialize;
 
-/// Configuration for the API keys.
-#[derive(Debug, Default)]
-pub struct ApiKeys {
+/// Configuration for the application.
+#[derive(Debug, Default, Deserialize)]
+pub struct GhGptConfig {
     pub github_token: String,
     pub openai_api_key: String,
+}
+
+impl GhGptConfig {
+    /// Create a new configuration from environment variables.
+    pub fn new() -> Result<Self> {
+        CONFIG.clone().try_deserialize().map_err(|e| e.into())
+    }
+}
+
+lazy_static::lazy_static! {
+    #[derive(Debug)]
+    pub static ref CONFIG: Config = Config::builder()
+        .add_source(config::Environment::with_prefix("gh_gpt"))
+        .build()
+        .unwrap();
 }

@@ -1,32 +1,39 @@
 #[macro_use]
 extern crate log;
 use clap::Parser;
+use color_eyre::eyre::Result;
+use dotenv::dotenv;
 use gh_gpt::cli::commands::{Cli, Commands};
-use gh_gpt::config::Config;
+use gh_gpt::config::GhGptConfig;
 use gh_gpt::labels::labelize;
 
-fn main() {
+fn main() -> Result<()> {
     // Initialize the logger.
     env_logger::init();
+
+    // Initialize the error handler.
+    color_eyre::install()?;
+
+    // Load the environment variables from the .env file.
+    dotenv()?;
+
+    // Say hello.
     info!("hello from gh-gpt 🤖 !");
 
     // Parse the command line arguments.
     let cli = Cli::parse();
 
     // Retrieve the application configuration.
-    let cfg = config();
+    let cfg = GhGptConfig::new()?;
 
-    if let Some(command) = cli.command {
-        match command {
-            Commands::Labelize { gh_issue_number } => {
-                labelize(&cfg, gh_issue_number);
-            }
+    // Execute the command.
+    match cli.command {
+        Some(command) => match command {
+            Commands::Labelize { gh_issue_number } => labelize(&cfg, gh_issue_number),
+        },
+        None => {
+            info!("nothing to do there, bye 👋");
+            Ok(())
         }
     }
-}
-
-/// Parse and return the application configuration.
-fn config() -> Config {
-    // TODO: Parse the configuration from the environment variables.
-    Config::default()
 }
