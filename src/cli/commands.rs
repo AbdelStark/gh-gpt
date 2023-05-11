@@ -15,5 +15,5 @@ pub struct Cli {
 /// Subcommands
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    Labelize { gh_issue_number: u64 },
+    Labelize { org: String, repo: String, issue_number: u64 },
 }

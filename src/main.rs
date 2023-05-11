@@ -7,7 +7,8 @@ use gh_gpt::cli::commands::{Cli, Commands};
 use gh_gpt::config::GhGptConfig;
 use gh_gpt::labels::labelize;
 
-fn main() -> Result<()> {
+#[tokio::main]
+async fn main() -> Result<()> {
     // Initialize the logger.
     env_logger::init();
 
@@ -17,23 +18,34 @@ fn main() -> Result<()> {
     // Load the environment variables from the .env file.
     dotenv()?;
 
+    // Retrieve the application configuration.
+    let cfg = GhGptConfig::new()?;
+
+    // Initialize the Github client API.
+    init_github_client_api(&cfg)?;
+
     // Say hello.
     info!("hello from gh-gpt 🤖 !");
 
     // Parse the command line arguments.
     let cli = Cli::parse();
 
-    // Retrieve the application configuration.
-    let cfg = GhGptConfig::new()?;
-
     // Execute the command.
     match cli.command {
         Some(command) => match command {
-            Commands::Labelize { gh_issue_number } => labelize(&cfg, gh_issue_number),
+            Commands::Labelize { issue_number, org, repo } => labelize(&cfg, &org, &repo, issue_number).await?,
         },
         None => {
             info!("nothing to do there, bye 👋");
-            Ok(())
         }
     }
+    Ok(())
+}
+
+/// Initialize the Github client API.
+fn init_github_client_api(cfg: &GhGptConfig) -> Result<()> {
+    // Initialises the static instance with configuration so that it can be statically accessed
+    // everywhere.
+    octocrab::initialise(octocrab::Octocrab::builder().personal_token(cfg.github_token.clone()).build()?);
+    Ok(())
 }
