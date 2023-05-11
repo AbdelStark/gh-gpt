@@ -3,8 +3,8 @@ on: [push]
 name: Test
 
 jobs:
-  check:
-    name: Rust project
+  test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
