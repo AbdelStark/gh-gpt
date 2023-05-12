@@ -8,6 +8,8 @@ Github AI-powered bot 🤖.
 
 gh-gpt is a Rust-based command line tool that uses the power of ChatGPT to automate tasks on Github. With gh-gpt, you can automatically add relevant labels to a Github issue, among other tasks.
 
+![Demo gif](./docs/img/demo.gif)
+
 ## Table of Contents
 
 - [gh-gpt](#gh-gpt)
