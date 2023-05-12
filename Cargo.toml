@@ -1,6 +1,6 @@
 [package]
 name = "gh-gpt"
-version = "0.0.1"
+version = "0.1.0"
 authors = ["Abdelhamid Bakhta <@abdelhamidbakhta>"]
 edition = "2021"
 license = "MIT"
@@ -10,6 +10,7 @@ description = "Github ChatGPT powered bot."
 readme = "README.md"
 
 [dependencies]
+async-openai = "0.10.3"
 clap = {version = "4.2.7", features = ["derive"]}
 color-eyre = "0.6.2"
 config = "0.13.3"
@@ -20,6 +21,7 @@ log = "0.4.17"
 octocrab = "0.21.0"
 serde = "1.0.163"
 serde_derive = "1.0.163"
+serde_json = "1.0.96"
 tokio = { version = "1", features = ["full"] }
 
 [dev-dependencies.cargo-husky]

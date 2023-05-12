@@ -9,6 +9,8 @@ use serde_derive::Deserialize;
 pub struct GhGptConfig {
     pub github_token: String,
     pub openai_api_key: String,
+    pub chatgpt_model: Option<String>,
+    pub chatgpt_max_tokens: Option<u16>,
 }
 
 impl GhGptConfig {

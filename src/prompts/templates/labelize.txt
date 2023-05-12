@@ -10,12 +10,10 @@ Issue body:
 ```
 Max number of labels: {max_labels}
 Output sample:
-```json
 {
     "labels": [
         "bug",
         "enhancement"
     ]
 }
-```
-The output must contain only the json output, nothing else.
+The output must contain only the json output, without any other text, no surrounding characters, backticks or new lines.
