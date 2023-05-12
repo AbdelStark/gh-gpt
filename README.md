@@ -71,7 +71,7 @@ gh-gpt labelize [repo_owner] [repo_name] [issue_number]
 For example, to labelize issue #1 of [keep-starknet-strange/madara](https://github.com/keep-starknet-strange/madara) you would run:
 
 ```bash
-gh-gpt labelize keep-starknet-strange madara 1
+RUST_LOG=info gh-gpt labelize keep-starknet-strange madara 1
 ```
 
 ## Contributing
