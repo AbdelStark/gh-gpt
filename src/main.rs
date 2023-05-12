@@ -16,7 +16,7 @@ async fn main() -> Result<()> {
     color_eyre::install()?;
 
     // Load the environment variables from the .env file.
-    dotenv()?;
+    dotenv().ok();
 
     // Retrieve the application configuration.
     let cfg = GhGptConfig::new()?;
