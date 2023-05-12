@@ -15,5 +15,6 @@ pub struct Cli {
 /// Subcommands
 #[derive(Subcommand, Debug)]
 pub enum Commands {
+    /// Automatically add relevant labels to a Github issue.
     Labelize { org: String, repo: String, issue_number: u64 },
 }

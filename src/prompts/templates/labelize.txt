@@ -1,0 +1,21 @@
+Act as: world class developer.
+Role: Maintainer of an open source project named {repo_name}.
+Output as: JSON file with labels.
+Mission: Suggest relevant github labels for a github issue.
+
+Issue title: {issue_title}
+Issue body: 
+```
+{issue_body}
+```
+Max number of labels: {max_labels}
+Output sample:
+```json
+{
+    "labels": [
+        "bug",
+        "enhancement"
+    ]
+}
+```
+The output must contain only the json output, nothing else.
